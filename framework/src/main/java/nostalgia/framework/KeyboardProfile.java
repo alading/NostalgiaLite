@@ -29,6 +29,22 @@ public class KeyboardProfile implements Serializable {
     public String name;
     public SparseIntArray keyMap = new SparseIntArray();
 
+//    public static KeyboardProfile createDefaultProfile() {
+//        KeyboardProfile profile = new KeyboardProfile();
+//        profile.name = "default";
+//        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_LEFT, EmulatorController.KEY_LEFT);
+//        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_RIGHT, EmulatorController.KEY_RIGHT);
+//        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_UP, EmulatorController.KEY_UP);
+//        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_DOWN, EmulatorController.KEY_DOWN);
+//        profile.keyMap.put(KeyEvent.KEYCODE_ENTER, EmulatorController.KEY_START);
+//        profile.keyMap.put(KeyEvent.KEYCODE_SPACE, EmulatorController.KEY_SELECT);
+//        profile.keyMap.put(KeyEvent.KEYCODE_Q, EmulatorController.KEY_A);
+//        profile.keyMap.put(KeyEvent.KEYCODE_W, EmulatorController.KEY_B);
+//        profile.keyMap.put(KeyEvent.KEYCODE_A, EmulatorController.KEY_A_TURBO);
+//        profile.keyMap.put(KeyEvent.KEYCODE_S, EmulatorController.KEY_B_TURBO);
+//        return profile;
+//    }
+
     public static KeyboardProfile createDefaultProfile() {
         KeyboardProfile profile = new KeyboardProfile();
         profile.name = "default";
@@ -36,12 +52,13 @@ public class KeyboardProfile implements Serializable {
         profile.keyMap.put(KeyEvent.KEYCODE_DPAD_RIGHT, EmulatorController.KEY_RIGHT);
         profile.keyMap.put(KeyEvent.KEYCODE_DPAD_UP, EmulatorController.KEY_UP);
         profile.keyMap.put(KeyEvent.KEYCODE_DPAD_DOWN, EmulatorController.KEY_DOWN);
-        profile.keyMap.put(KeyEvent.KEYCODE_ENTER, EmulatorController.KEY_START);
-        profile.keyMap.put(KeyEvent.KEYCODE_SPACE, EmulatorController.KEY_SELECT);
-        profile.keyMap.put(KeyEvent.KEYCODE_Q, EmulatorController.KEY_A);
-        profile.keyMap.put(KeyEvent.KEYCODE_W, EmulatorController.KEY_B);
-        profile.keyMap.put(KeyEvent.KEYCODE_A, EmulatorController.KEY_A_TURBO);
-        profile.keyMap.put(KeyEvent.KEYCODE_S, EmulatorController.KEY_B_TURBO);
+        profile.keyMap.put(KeyEvent.KEYCODE_BUTTON_START, EmulatorController.KEY_START);
+        profile.keyMap.put(KeyEvent.KEYCODE_BUTTON_SELECT, EmulatorController.KEY_SELECT);
+        profile.keyMap.put(KeyEvent.KEYCODE_BUTTON_A, EmulatorController.KEY_A);
+        profile.keyMap.put(KeyEvent.KEYCODE_BUTTON_B, EmulatorController.KEY_B);
+        profile.keyMap.put(KeyEvent.KEYCODE_BUTTON_X, EmulatorController.KEY_A_TURBO);
+        profile.keyMap.put(KeyEvent.KEYCODE_BUTTON_Y, EmulatorController.KEY_B_TURBO);
+        profile.keyMap.put(KeyEvent.KEYCODE_BUTTON_MODE, KeyboardController.KEY_BACK);
         return profile;
     }
 
