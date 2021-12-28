@@ -17,7 +17,9 @@ import nostalgia.framework.controllers.KeyboardController;
 import nostalgia.framework.utils.NLog;
 
 public class KeyboardProfile implements Serializable {
-    public static final String[] DEFAULT_PROFILES_NAMES = {"default", "ps3", "wiimote"};
+
+    public static final String DEFAULT_KEYBOARD = "nes";
+    public static final String[] DEFAULT_PROFILES_NAMES = {"default", "ps3", "wiimote","nes"};
 
     private static final long serialVersionUID = 5817859819275903370L;
     private static final String KEYBOARD_PROFILES_SETTINGS = "keyboard_profiles_pref";
@@ -29,23 +31,24 @@ public class KeyboardProfile implements Serializable {
     public String name;
     public SparseIntArray keyMap = new SparseIntArray();
 
-//    public static KeyboardProfile createDefaultProfile() {
-//        KeyboardProfile profile = new KeyboardProfile();
-//        profile.name = "default";
-//        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_LEFT, EmulatorController.KEY_LEFT);
-//        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_RIGHT, EmulatorController.KEY_RIGHT);
-//        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_UP, EmulatorController.KEY_UP);
-//        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_DOWN, EmulatorController.KEY_DOWN);
-//        profile.keyMap.put(KeyEvent.KEYCODE_ENTER, EmulatorController.KEY_START);
-//        profile.keyMap.put(KeyEvent.KEYCODE_SPACE, EmulatorController.KEY_SELECT);
-//        profile.keyMap.put(KeyEvent.KEYCODE_Q, EmulatorController.KEY_A);
-//        profile.keyMap.put(KeyEvent.KEYCODE_W, EmulatorController.KEY_B);
-//        profile.keyMap.put(KeyEvent.KEYCODE_A, EmulatorController.KEY_A_TURBO);
-//        profile.keyMap.put(KeyEvent.KEYCODE_S, EmulatorController.KEY_B_TURBO);
-//        return profile;
-//    }
-
     public static KeyboardProfile createDefaultProfile() {
+        KeyboardProfile profile = new KeyboardProfile();
+        profile.name = "default";
+        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_LEFT, EmulatorController.KEY_LEFT);
+        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_RIGHT, EmulatorController.KEY_RIGHT);
+        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_UP, EmulatorController.KEY_UP);
+        profile.keyMap.put(KeyEvent.KEYCODE_DPAD_DOWN, EmulatorController.KEY_DOWN);
+        profile.keyMap.put(KeyEvent.KEYCODE_ENTER, EmulatorController.KEY_START);
+        profile.keyMap.put(KeyEvent.KEYCODE_SPACE, EmulatorController.KEY_SELECT);
+        profile.keyMap.put(KeyEvent.KEYCODE_Q, EmulatorController.KEY_A);
+        profile.keyMap.put(KeyEvent.KEYCODE_W, EmulatorController.KEY_B);
+        profile.keyMap.put(KeyEvent.KEYCODE_A, EmulatorController.KEY_A_TURBO);
+        profile.keyMap.put(KeyEvent.KEYCODE_S, EmulatorController.KEY_B_TURBO);
+        return profile;
+    }
+
+
+    public static KeyboardProfile createNESProfile() {
         KeyboardProfile profile = new KeyboardProfile();
         profile.name = "default";
         profile.keyMap.put(KeyEvent.KEYCODE_DPAD_LEFT, EmulatorController.KEY_LEFT);
@@ -116,7 +119,7 @@ public class KeyboardProfile implements Serializable {
 
     public static KeyboardProfile getSelectedProfile(String gameHash, Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        String name = pref.getString("pref_game_keyboard_profile", "default");
+        String name = pref.getString("pref_game_keyboard_profile",DEFAULT_KEYBOARD);
         return load(context, name);
     }
 
@@ -142,6 +145,8 @@ public class KeyboardProfile implements Serializable {
                         return createPS3Profile();
                     case "wiimote":
                         return createWiimoteProfile();
+                    case "nes":
+                        return createNESProfile();
                     default:
                         return createDefaultProfile();
                 }
@@ -177,6 +182,9 @@ public class KeyboardProfile implements Serializable {
     public static void restoreDefaultProfile(String name, Context context) {
         KeyboardProfile prof = null;
         switch (name) {
+            case "nes":
+                prof = createNESProfile();
+                break;
             case "ps3":
                 prof = createPS3Profile();
                 break;
