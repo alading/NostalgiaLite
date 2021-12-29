@@ -58,7 +58,8 @@ class YAWConnectFragment : Fragment() {
         guestButton = view.findViewById<TextView>(R.id.tv_guest)
         guestButton?.setOnClickListener {
              //TODO: add call back
-            // TCP Connect
+            activity.finish()
+
             CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
                 Constants.Yaw_Chair_IpAddress?.let {
                     val inetAddress = InetAddress.getByName(it)

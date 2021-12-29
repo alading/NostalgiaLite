@@ -170,6 +170,7 @@ public abstract class GalleryActivity extends BaseGameGalleryActivity
     }
 
     public boolean onGameSelected(GameDescription game, int slot) {
+
         Intent intent = new Intent(this, getEmulatorActivityClass());
         intent.putExtra(EmulatorActivity.EXTRA_GAME, game);
         intent.putExtra(EmulatorActivity.EXTRA_SLOT, slot);
@@ -300,7 +301,7 @@ public abstract class GalleryActivity extends BaseGameGalleryActivity
         super.onStop();
 
         // stop TCP
-        new NetworkAsyncTask().execute();
+        //new NetworkAsyncTask().execute();
 
     }
 
