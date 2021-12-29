@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.appblend.handfree.yaw.Constants
 import com.appblend.handfree.yaw.R
+import com.tcl.tv.ideo.yaw.YawTCPClient
 import com.tcl.tv.ideo.yaw.YawUDPClient
 import kotlinx.coroutines.*
 import java.io.IOException
@@ -56,28 +58,21 @@ class YAWConnectFragment : Fragment() {
         guestButton = view.findViewById<TextView>(R.id.tv_guest)
         guestButton?.setOnClickListener {
              //TODO: add call back
-//            val intent = Intent(activity, MainActivity::class.java)
-//            startActivity(intent)
-//            activity.finish()
+            // TCP Connect
+            CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+                Constants.Yaw_Chair_IpAddress?.let {
+                    val inetAddress = InetAddress.getByName(it)
+                    val startTCPOK = (YawTCPClient.getInstance(inetAddress, Constants.TCP_PORT)?.command(
+                        Constants.START
+                    )!!)
+                    withContext(Dispatchers.Main) {
+                        if(!startTCPOK) {
+                            Toast.makeText(activity,"\nActivate Yaw failure, please click me to try again", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
 
-
-//            coroutineJob = CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-//
-//                Constants.Yaw_Chair_IpAddress?.let {
-//                    val inetAddress = InetAddress.getByName(it)
-//                    val startTCPOK = (YawTCPClient.getInstance(inetAddress, TCP_PORT)?.command(START)!!)
-//                    withContext(Dispatchers.Main) {
-//                        if(startTCPOK) {
-//                            val intent = Intent(activity, MainActivity::class.java)
-//                            startActivity(intent)
-//                            activity.finish()
-//                        } else {
-//                            guestButton?.text = guestButton?.text.toString() + "\nActivate Yaw failure, please click me to try again"
-//                        }
-//                    }
-//                }
-//
-//            }
+            }
 
 
         }

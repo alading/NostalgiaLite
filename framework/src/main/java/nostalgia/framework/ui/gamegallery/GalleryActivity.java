@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
@@ -13,12 +14,16 @@ import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.appblend.handfree.yaw.Constants;
 import com.appblend.handfree.yaw.YawActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.tcl.tv.ideo.yaw.YawTCPClient;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -288,6 +293,36 @@ public abstract class GalleryActivity extends BaseGameGalleryActivity
         super.onSaveInstanceState(outState);
         outState.putInt(EXTRA_TABS_IDX, pager.getCurrentItem());
         adapter.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        // stop TCP
+        new NetworkAsyncTask().execute();
+
+    }
+
+    private class NetworkAsyncTask extends AsyncTask<String, Void, Void> {
+        protected Void doInBackground(String... strings) {
+
+            try {
+                InetAddress inetAddress = InetAddress.getByName(Constants.Companion.getYaw_Chair_IpAddress());
+                YawTCPClient.Companion.getInstance(inetAddress, Constants.Companion.getTCP_PORT()).command(Constants.Companion.getSTOP());
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        protected void onPostExecute(String result) {
+            // This method is executed in the UIThread
+            // with access to the result of the long running task
+            // DO SOMETHING WITH STRING RESPONSE
+        }
     }
 
 }

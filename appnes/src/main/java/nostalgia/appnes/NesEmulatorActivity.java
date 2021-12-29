@@ -3,12 +3,14 @@ package nostalgia.appnes;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import java.util.List;
 
 import nostalgia.framework.Emulator;
 import nostalgia.framework.base.EmulatorActivity;
 import nostalgia.framework.ui.preferences.PreferenceUtil;
+import nostalgia.framework.utils.NLog;
 
 public class NesEmulatorActivity extends EmulatorActivity {
     private boolean isLastOfStack = false;
@@ -73,4 +75,37 @@ public class NesEmulatorActivity extends EmulatorActivity {
         return taskList.get(0).numActivities == 1 &&
                 taskList.get(0).topActivity.getClassName().equals(this.getClass().getName());
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                break;
+            case KeyEvent.KEYCODE_BUTTON_A:
+                break;
+            case KeyEvent.KEYCODE_BUTTON_B:
+                break;
+        }
+        return super.onKeyDown(keyCode,event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                break;
+            case KeyEvent.KEYCODE_BUTTON_A:
+                break;
+            case KeyEvent.KEYCODE_BUTTON_B:
+                break;
+        }
+        return super.onKeyUp(keyCode,event);
+    }
+
+
 }

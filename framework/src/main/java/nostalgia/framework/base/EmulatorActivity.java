@@ -793,6 +793,9 @@ public abstract class EmulatorActivity extends Activity
             case KeyEvent.KEYCODE_3D_MODE:
             case KeyEvent.KEYCODE_APP_SWITCH:
                 return super.onKeyDown(keyCode, event);
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+
+                return false;
             default:
                 return true;
         }
