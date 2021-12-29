@@ -80,7 +80,7 @@ public class NesEmulatorActivity extends EmulatorActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                
+
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
                 break;
