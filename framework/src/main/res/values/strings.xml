@@ -162,4 +162,5 @@
     <string name="control_menu">MENU</string>
 
     <string name="now_loading">Loading, Please Wait…</string>
+    <string name="gallery_menu_yaw">CONNECT MOTION CHAIR</string>
 </resources>

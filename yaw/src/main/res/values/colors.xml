@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2017 The Android Open Source Project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+<resources>
+  <color name="colorPrimary">#FFFFFF</color>
+  <color name="colorPrimaryDark">#000000</color>
+  <color name="colorAccent">#FF4081</color>
+
+  <!-- tutorial background -->
+  <color name="skip_button_background_color">#1Effffff</color>
+
+  <!-- avatar background -->
+  <color name="avatar_background_start">#E5627dff</color>
+  <color name="avatar_background_end">#E59dd6ff</color>
+  <color name="purple_button">#253772</color>
+  <color name="index_color">#3955af</color>
+  <color name="count_down_button">#1ce0e8</color>
+  <color name="white_text_color">#FFFFFF</color>
+  <color name="semi_transparent_white">#E0FFFFFF</color>
+  <color name="semi_transparent">#06000000</color>
+  <color name="transparent">#00000000</color>
+  <color name="dk_green">#08FFAA</color>
+  <color name="selected_background">#ffaa3f</color>
+
+  <!-- popup background -->
+  <color name="popup_background_start">#F8FFA6</color>
+  <color name="popup_background_end">#FFFA00</color>
+  <color name="popup_black_background">#A0000000</color>
+  <color name="popup_chat_input_background">#ff7c36</color>
+  <color name="popup_chat_input_editbox_background">#de601d</color>
+
+  <color name="search_opaque">#ffaa3f</color>
+
+
+
+  <!-- smart object -->
+  <color name="smartobject_background_start">#80000000</color>
+  <color name="smartobject_background_end">#B2000000</color>
+  <color name="smartobject_selected">#3071ff00</color>
+  <color name="smartobject_unselect">#24ffffff</color>
+
+</resources>

@@ -30,6 +30,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.appblend.handfree.yaw.YawActivity" />
+
         <activity android:name=".ui.gamegallery.SlotSelectionActivity" />
 
         <activity

@@ -7,6 +7,11 @@
         android:title="@string/gallery_menu_reload"
         app:showAsAction="never" />
     <item
+        android:id="@+id/gallery_menu_yaw"
+        android:icon="@drawable/ic_mobile"
+        android:title="@string/gallery_menu_yaw"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/gallery_menu_pref"
         android:icon="@drawable/ic_game_settings"
         android:title="@string/gallery_menu_pref"

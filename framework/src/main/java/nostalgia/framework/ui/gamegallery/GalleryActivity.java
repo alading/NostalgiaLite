@@ -13,6 +13,7 @@ import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.appblend.handfree.yaw.YawActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
@@ -85,6 +86,12 @@ public abstract class GalleryActivity extends BaseGameGalleryActivity
         if (itemId == R.id.gallery_menu_pref) {
             Intent i = new Intent(this, GeneralPreferenceActivity.class);
             i.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, GeneralPreferenceFragment.class.getName());
+            i.putExtra(PreferenceActivity.EXTRA_NO_HEADERS, true);
+            startActivity(i);
+            return true;
+        } else if (itemId == R.id.gallery_menu_yaw) {
+            Intent i = new Intent(this, YawActivity.class);
+            i.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, YawActivity.class.getName());
             i.putExtra(PreferenceActivity.EXTRA_NO_HEADERS, true);
             startActivity(i);
             return true;
