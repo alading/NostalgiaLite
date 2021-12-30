@@ -27,7 +27,7 @@
             android:focusable="true"
             android:focusedByDefault="true"
             android:clickable="true"
-            android:text="Searching Chair..."/>
+            android:text="Searching chair, please waiting ..."/>
 
     </LinearLayout>
 

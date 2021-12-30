@@ -60,20 +60,20 @@ class YAWConnectFragment : Fragment() {
              //TODO: add call back
             activity.finish()
 
-            CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-                Constants.Yaw_Chair_IpAddress?.let {
-                    val inetAddress = InetAddress.getByName(it)
-                    val startTCPOK = (YawTCPClient.getInstance(inetAddress, Constants.TCP_PORT)?.command(
-                        Constants.START
-                    )!!)
-                    withContext(Dispatchers.Main) {
-                        if(!startTCPOK) {
-                            Toast.makeText(activity,"\nActivate Yaw failure, please click me to try again", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-
-            }
+//            CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+//                Constants.Yaw_Chair_IpAddress?.let {
+//                    val inetAddress = InetAddress.getByName(it)
+//                    val startTCPOK = (YawTCPClient.getInstance(inetAddress, Constants.TCP_PORT)?.command(
+//                        Constants.START
+//                    )!!)
+//                    withContext(Dispatchers.Main) {
+//                        if(!startTCPOK) {
+//                            Toast.makeText(activity,"\nActivate Yaw failure, please click me to try again", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                }
+//
+//            }
 
 
         }
@@ -116,7 +116,7 @@ class YAWConnectFragment : Fragment() {
             withContext(Dispatchers.Main) {
 
                 Constants.Yaw_Chair_IpAddress?.apply {
-                    guestButton?.text = this
+                    guestButton?.text = "Chair found at \n"+this +"\n please click button to start game again"
                 }
 
             }

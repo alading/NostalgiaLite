@@ -17,11 +17,16 @@ import android.preference.PreferenceActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import com.appblend.handfree.yaw.Constants
 import nostalgia.framework.ui.preferences.GeneralPreferenceFragment
 import com.appblend.handfree.yaw.YawActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import com.tcl.tv.ideo.yaw.YawTCPClient
+import com.tcl.tv.ideo.yaw.YawUDPClient
+import kotlinx.coroutines.*
 import nostalgia.framework.ui.gamegallery.GameDescription
 import nostalgia.framework.utils.NLog
 import nostalgia.framework.ui.gamegallery.ZipRomFile
@@ -30,6 +35,7 @@ import nostalgia.framework.base.EmulatorActivity
 import nostalgia.framework.utils.DialogUtils
 import java.io.File
 import java.io.IOException
+import java.net.InetAddress
 import java.text.NumberFormat
 import java.util.ArrayList
 
@@ -42,6 +48,14 @@ abstract class GalleryActivity : BaseGameGalleryActivity(),
     private val importing = false
     private var rotateAnim = false
     private lateinit var mTabLayout: TabLayout
+    private var coroutineJob: Job? = null
+    val coroutineExceptionHandler = CoroutineExceptionHandler{ _, t ->
+        run {
+            t.printStackTrace()
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dbHelper = DatabaseHelper(this)
@@ -115,6 +129,36 @@ abstract class GalleryActivity : BaseGameGalleryActivity(),
     }
 
     override fun onItemClick(game: GameDescription) {
+
+        if(Constants.Yaw_Chair_IpAddress ==null) {
+            // get broadcast of Yaw and connect it
+            val i = Intent(this, YawActivity::class.java)
+            i.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, YawActivity::class.java.name)
+            i.putExtra(PreferenceActivity.EXTRA_NO_HEADERS, true)
+            startActivity(i)
+        } else {
+
+            // TCP Connect
+            CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+                Constants.Yaw_Chair_IpAddress?.let {
+                    val inetAddress = InetAddress.getByName(it)
+                    val startTCPOK = (YawTCPClient.getInstance(inetAddress, Constants.TCP_PORT)?.command(
+                        Constants.START
+                    )!!)
+                    withContext(Dispatchers.Main) {
+                        if(!startTCPOK) {
+                            Toast.makeText(baseContext,"\nActivate Yaw failure, please click me to try again", Toast.LENGTH_SHORT).show()
+                        }
+                        startGame(game)
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    private fun startGame(game: GameDescription) {
         var gameFile = File(game.path)
         NLog.i(TAG, "select $game")
         if (game.isInArchive) {
@@ -151,7 +195,12 @@ abstract class GalleryActivity : BaseGameGalleryActivity(),
                 }
                 .setCancelable(false)
                 .create()
-            dialog.setOnDismissListener { dialog12: DialogInterface? -> reloadGames(true, null) }
+            dialog.setOnDismissListener { dialog12: DialogInterface? ->
+                reloadGames(
+                    true,
+                    null
+                )
+            }
             dialog.show()
         }
     }
