@@ -20,6 +20,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.appblend.handfree.yaw.Constants
+import com.appblend.handfree.yaw.Constants.Companion.TCP_PORT
 import nostalgia.framework.ui.preferences.GeneralPreferenceFragment
 import com.appblend.handfree.yaw.YawActivity
 import com.google.android.material.snackbar.Snackbar
@@ -120,6 +121,18 @@ abstract class GalleryActivity : BaseGameGalleryActivity(),
         if (reloadGames && !importing) {
             val isDBEmpty = dbHelper!!.countObjsInDb(GameDescription::class.java, null) == 0
             reloadGames(isDBEmpty, null)
+        }
+
+        // stop TCP
+        CoroutineScope(Dispatchers.IO ).launch {
+
+            Constants.Yaw_Chair_IpAddress?.let {
+                val inetAddress = InetAddress.getByName(it)
+                (YawTCPClient.getInstance(inetAddress, TCP_PORT)?.command(
+                    Constants.STOP
+                )!!)
+            }
+
         }
     }
 
