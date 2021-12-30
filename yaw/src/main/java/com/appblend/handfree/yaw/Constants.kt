@@ -60,6 +60,7 @@ class Constants {
 
 
         // Yaw Chair
+        var Yaw_Chair_Ignore : Boolean = false
         var Yaw_Chair_IpAddress : String? = null
         val TCP_PORT = 50020
         val UDP_PORT = 50010

@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.appblend.handfree.yaw.Constants
 import com.appblend.handfree.yaw.Constants.Companion.TCP_PORT
+import com.appblend.handfree.yaw.Constants.Companion.Yaw_Chair_Ignore
 import nostalgia.framework.ui.preferences.GeneralPreferenceFragment
 import com.appblend.handfree.yaw.YawActivity
 import com.google.android.material.snackbar.Snackbar
@@ -143,7 +144,7 @@ abstract class GalleryActivity : BaseGameGalleryActivity(),
 
     override fun onItemClick(game: GameDescription) {
 
-        if(Constants.Yaw_Chair_IpAddress ==null) {
+        if(Constants.Yaw_Chair_IpAddress ==null && !Yaw_Chair_Ignore) {
             // get broadcast of Yaw and connect it
             val i = Intent(this, YawActivity::class.java)
             i.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, YawActivity::class.java.name)
@@ -162,9 +163,10 @@ abstract class GalleryActivity : BaseGameGalleryActivity(),
                         if(!startTCPOK) {
                             Toast.makeText(baseContext,"\nActivate Yaw failure, please click me to try again", Toast.LENGTH_SHORT).show()
                         }
-                        startGame(game)
+
                     }
                 }
+                startGame(game)
 
             }
 

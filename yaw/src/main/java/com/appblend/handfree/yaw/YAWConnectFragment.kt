@@ -1,18 +1,16 @@
 package com.tcl.tv.ideo.player.ui.yawvr
 
 import android.app.Fragment
-import android.content.Intent
-import android.graphics.drawable.ColorDrawable
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import com.appblend.handfree.yaw.Constants
 import com.appblend.handfree.yaw.R
-import com.tcl.tv.ideo.yaw.YawTCPClient
 import com.tcl.tv.ideo.yaw.YawUDPClient
 import kotlinx.coroutines.*
 import java.io.IOException
@@ -27,7 +25,9 @@ class YAWConnectFragment : Fragment() {
 
     var broadcastList: List<InetAddress>? = null
     private val BROADCASTING_PORT = 50010
-    private var guestButton: TextView? = null
+    private var tvDisplay: TextView? = null
+    private lateinit var  okButton: Button
+    private lateinit var  retryButton: Button
     private var sevenDayFreeTrialButton: View? = null
     private var coroutineJob: Job? = null
     val coroutineExceptionHandler = CoroutineExceptionHandler{ _, t ->
@@ -55,32 +55,21 @@ class YAWConnectFragment : Fragment() {
 
         //loginAsGuest()
         getYawDevice()
-        guestButton = view.findViewById<TextView>(R.id.tv_guest)
-        guestButton?.setOnClickListener {
+        okButton = view.findViewById<Button>(R.id.okButton)
+        retryButton = view.findViewById<Button>(R.id.retry)
+        tvDisplay = view.findViewById<TextView>(R.id.tv_guest)
+        okButton?.setOnClickListener {
              //TODO: add call back
             activity.finish()
 
-//            CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-//                Constants.Yaw_Chair_IpAddress?.let {
-//                    val inetAddress = InetAddress.getByName(it)
-//                    val startTCPOK = (YawTCPClient.getInstance(inetAddress, Constants.TCP_PORT)?.command(
-//                        Constants.START
-//                    )!!)
-//                    withContext(Dispatchers.Main) {
-//                        if(!startTCPOK) {
-//                            Toast.makeText(activity,"\nActivate Yaw failure, please click me to try again", Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-//                }
-//
-//            }
-
-
         }
-
-
-
-
+        retryButton?.setOnClickListener {
+            //TODO: add call back
+            tvDisplay?.text = "Searching motion chair, please wait..."
+            okButton.visibility = View.GONE
+            retryButton.visibility = View.GONE
+            getYawDevice()
+        }
 
 
     }
@@ -91,7 +80,7 @@ class YAWConnectFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        guestButton = null
+        tvDisplay = null
         sevenDayFreeTrialButton = null
     }
 
@@ -115,8 +104,13 @@ class YAWConnectFragment : Fragment() {
 
             withContext(Dispatchers.Main) {
 
-                Constants.Yaw_Chair_IpAddress?.apply {
-                    guestButton?.text = "Chair found at \n"+this +"\n please click button to start game again"
+                if(Constants.Yaw_Chair_IpAddress != null){
+                    tvDisplay?.text = "Chair found at \n"+Constants.Yaw_Chair_IpAddress+"\n please click ok button to continue"
+                    okButton.visibility = View.VISIBLE
+                } else {
+                    tvDisplay?.text = "Chair not found, click ok button to ignore"
+                    okButton.visibility = View.VISIBLE
+                    retryButton.visibility = View.VISIBLE
                 }
 
             }

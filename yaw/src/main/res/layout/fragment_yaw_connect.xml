@@ -10,12 +10,12 @@
     <LinearLayout
         android:layout_width="800dp"
         android:layout_height="440dp"
+        android:orientation="vertical"
         android:layout_centerInParent="true">
         <TextView
             android:id="@+id/tv_guest"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:keepScreenOn="true"
             android:background="@drawable/click_button_background"
@@ -24,10 +24,39 @@
             android:textStyle="bold"
             android:layout_margin="16dp"
             android:padding="16dp"
-            android:focusable="true"
-            android:focusedByDefault="true"
-            android:clickable="true"
-            android:text="Searching chair, please waiting ..."/>
+            android:text="Searching motion chair, please wait..."/>
+
+        <LinearLayout
+            android:id="@+id/buttonPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/retry"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="RETRY"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background"
+                android:visibility="gone">
+
+            </Button>
+
+            <Button
+                android:id="@+id/okButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="OK"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background"
+                android:visibility="gone">
+
+            </Button>
+
+        </LinearLayout>
 
     </LinearLayout>
 

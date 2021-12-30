@@ -2,6 +2,7 @@ package com.tcl.tv.ideo.yaw
 
 import android.util.Log
 import com.appblend.handfree.yaw.Constants.Companion.UDP_PORT
+import com.appblend.handfree.yaw.Constants.Companion.Yaw_Chair_Ignore
 import kotlinx.coroutines.*
 import java.io.IOException
 import java.net.*
@@ -48,6 +49,7 @@ class YawUDPClient private constructor() {
         udpSocket?.send(packet)
         var run = true
         var text : String? = null
+        var retryTime = 2
         while (run) {
             try {
                 val messageBuffer = ByteArray(100)
@@ -68,7 +70,13 @@ class YawUDPClient private constructor() {
                 run = false
             } catch (e: SocketTimeoutException) {
                 Log.e(TAG,"Timeout Exception"+ "UDP Connection: \n" +e)
-                udpSocket?.send(packet)
+                retryTime--;
+                if(retryTime < 0) {
+                    Yaw_Chair_Ignore = true
+                    run = false
+                } else {
+                    udpSocket?.send(packet)
+                }
             } catch (e: IOException) {
                 Log.e(TAG, " UDP client has IOException" +"error: \n", e)
                 run = false
