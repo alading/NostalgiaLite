@@ -101,32 +101,54 @@ class NesEmulatorActivity : EmulatorActivity() {
                 }
             }
             KeyEvent.KEYCODE_BUTTON_A -> {
+                coroutineJob = CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+
+                    YawUDPClient.getInstance()?.sendMessage(YawMovement.HEADUP10.move!!)
+                    delay(500)
+                    YawUDPClient.getInstance()?.sendMessage(YawMovement.HEADDOWN10.move!!)
+                    delay(500)
+                    YawUDPClient.getInstance()?.sendMessage(YawMovement.IDLE.move!!)
+                    withContext(Dispatchers.Main) {
+                        Log.d(TAG, YawMovement.ROLLRIGHT5.name)
+                    }
+
+                }
             }
             KeyEvent.KEYCODE_BUTTON_B -> {
+                coroutineJob = CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+
+                    YawUDPClient.getInstance()?.sendMessage(YawMovement.VIBRATION.move!!)
+                    delay(500)
+                    YawUDPClient.getInstance()?.sendMessage(YawMovement.IDLE.move!!)
+                    withContext(Dispatchers.Main) {
+                        Log.d(TAG, YawMovement.ROLLRIGHT5.name)
+                    }
+
+                }
             }
         }
         return super.onKeyDown(keyCode, event)
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-//        when (keyCode) {
-//            KeyEvent.KEYCODE_DPAD_LEFT -> {
-//            }
-//            KeyEvent.KEYCODE_DPAD_RIGHT -> {
-//            }
-//            KeyEvent.KEYCODE_BUTTON_A -> {
-//            }
-//            KeyEvent.KEYCODE_BUTTON_B -> {
-//            }
-//        }
-        coroutineJob = CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+        when (keyCode) {
+            KeyEvent.KEYCODE_DPAD_LEFT ,
+            KeyEvent.KEYCODE_DPAD_RIGHT -> {
+                coroutineJob = CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
 
-            YawUDPClient.getInstance()?.sendMessage(YawMovement.IDLE.move!!)
-            withContext(Dispatchers.Main) {
-                Log.d(TAG, YawMovement.IDLE.name)
+                    YawUDPClient.getInstance()?.sendMessage(YawMovement.IDLE.move!!)
+                    withContext(Dispatchers.Main) {
+                        Log.d(TAG, YawMovement.IDLE.name)
+                    }
+
+                }
             }
-
+            KeyEvent.KEYCODE_BUTTON_A -> {
+            }
+            KeyEvent.KEYCODE_BUTTON_B -> {
+            }
         }
+
         return super.onKeyUp(keyCode, event)
     }
 
