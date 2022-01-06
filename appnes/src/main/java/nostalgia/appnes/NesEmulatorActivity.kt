@@ -83,9 +83,9 @@ class NesEmulatorActivity : EmulatorActivity() {
             KeyEvent.KEYCODE_DPAD_LEFT -> {
                 coroutineJob = CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
 
-                    YawUDPClient.getInstance()?.sendMessage(YawMovement.ROLLLEFT5.move!!)
+                    YawUDPClient.getInstance()?.sendMessage(YawMovement.ROLLLEFT10.move!!)
                     withContext(Dispatchers.Main) {
-                        Log.d(TAG, YawMovement.ROLLLEFT5.name)
+                        Log.d(TAG, "Left")
                     }
 
                 }
@@ -93,9 +93,9 @@ class NesEmulatorActivity : EmulatorActivity() {
             KeyEvent.KEYCODE_DPAD_RIGHT -> {
                 coroutineJob = CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
 
-                    YawUDPClient.getInstance()?.sendMessage(YawMovement.ROLLRIGHT5.move!!)
+                    YawUDPClient.getInstance()?.sendMessage(YawMovement.ROLLRIGHT10.move!!)
                     withContext(Dispatchers.Main) {
-                        Log.d(TAG, YawMovement.ROLLRIGHT5.name)
+                        Log.d(TAG, "Right")
                     }
 
                 }
@@ -109,7 +109,7 @@ class NesEmulatorActivity : EmulatorActivity() {
                     delay(500)
                     YawUDPClient.getInstance()?.sendMessage(YawMovement.IDLE.move!!)
                     withContext(Dispatchers.Main) {
-                        Log.d(TAG, YawMovement.ROLLRIGHT5.name)
+                        Log.d(TAG, "Button A Down")
                     }
 
                 }
@@ -121,7 +121,7 @@ class NesEmulatorActivity : EmulatorActivity() {
                     delay(500)
                     YawUDPClient.getInstance()?.sendMessage(YawMovement.IDLE.move!!)
                     withContext(Dispatchers.Main) {
-                        Log.d(TAG, YawMovement.ROLLRIGHT5.name)
+                        Log.d(TAG, "Button B Down")
                     }
 
                 }
