@@ -103,10 +103,10 @@ class NesEmulatorActivity : EmulatorActivity() {
             KeyEvent.KEYCODE_BUTTON_A -> {
                 coroutineJob = CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
 
-                    YawUDPClient.getInstance()?.sendMessage(YawMovement.HEADUP10.move!!)
-                    delay(500)
-                    YawUDPClient.getInstance()?.sendMessage(YawMovement.HEADDOWN10.move!!)
-                    delay(500)
+                    YawUDPClient.getInstance()?.sendMessage(YawMovement.HEADUP5.move!!)
+                    delay(300)
+                    YawUDPClient.getInstance()?.sendMessage(YawMovement.HEADDOWN5.move!!)
+                    delay(300)
                     YawUDPClient.getInstance()?.sendMessage(YawMovement.IDLE.move!!)
                     withContext(Dispatchers.Main) {
                         Log.d(TAG, "Button A Down")

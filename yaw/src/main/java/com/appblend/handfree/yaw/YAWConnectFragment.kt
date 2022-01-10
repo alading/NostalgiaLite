@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.appblend.handfree.yaw.Constants
 import com.appblend.handfree.yaw.R
+import com.appblend.handfree.yaw.YawActivity
 import com.tcl.tv.ideo.yaw.YawUDPClient
 import kotlinx.coroutines.*
 import java.io.IOException
@@ -28,6 +30,7 @@ class YAWConnectFragment : Fragment() {
     private var tvDisplay: TextView? = null
     private lateinit var  okButton: Button
     private lateinit var  retryButton: Button
+    private lateinit var  testButton: Button
     private var sevenDayFreeTrialButton: View? = null
     private var coroutineJob: Job? = null
     val coroutineExceptionHandler = CoroutineExceptionHandler{ _, t ->
@@ -57,18 +60,25 @@ class YAWConnectFragment : Fragment() {
         getYawDevice()
         okButton = view.findViewById<Button>(R.id.okButton)
         retryButton = view.findViewById<Button>(R.id.retry)
+        testButton = view.findViewById<Button>(R.id.test)
         tvDisplay = view.findViewById<TextView>(R.id.tv_guest)
         okButton?.setOnClickListener {
-             //TODO: add call back
             activity.finish()
 
         }
         retryButton?.setOnClickListener {
-            //TODO: add call back
             tvDisplay?.text = "Searching motion chair, please wait..."
             okButton.visibility = View.GONE
             retryButton.visibility = View.GONE
+            testButton.visibility = View.GONE
             getYawDevice()
+        }
+        testButton?.setOnClickListener {
+            Toast.makeText(it.context,"click test", Toast.LENGTH_SHORT).show()
+            val hostActivity = activity as YawActivity
+            val testFragment = YAWTestFragment();
+            hostActivity.replaceFragment(testFragment)
+
         }
 
 
@@ -107,6 +117,7 @@ class YAWConnectFragment : Fragment() {
                 if(Constants.Yaw_Chair_IpAddress != null){
                     tvDisplay?.text = "Chair found at \n"+Constants.Yaw_Chair_IpAddress+"\n please click ok button to continue"
                     okButton.visibility = View.VISIBLE
+                    testButton.visibility = View.VISIBLE
                 } else {
                     tvDisplay?.text = "Chair not found, click ok button to ignore"
                     okButton.visibility = View.VISIBLE

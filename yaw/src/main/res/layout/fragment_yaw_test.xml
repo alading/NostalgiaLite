@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:id="@+id/moveAnglePanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_yaw"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Yaw"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background">
+
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner_yaw"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background"
+                android:spinnerMode ="dialog"
+                />
+
+            <TextView
+                android:id="@+id/tv_pitch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Pitch"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background">
+
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner_pitch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background"
+                android:spinnerMode ="dialog"
+                />
+
+            <TextView
+                android:id="@+id/tv_roll"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Roll"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background">
+
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner_roll"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background"
+                android:spinnerMode ="dialog"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vibrationPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_amplitude"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Amplitude"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background">
+
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner_amp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background"
+                android:spinnerMode ="dialog"
+                />
+
+            <TextView
+                android:id="@+id/tv_frequency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Frequency"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background">
+
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner_frequency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background"
+                android:spinnerMode ="dialog"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/displayPannel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_command_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Command : "
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background">
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/tv_command"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=""
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/commandPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_sumit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Submit"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background">
+
+            </Button>
+
+            <Button
+                android:id="@+id/bt_back"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Back"
+                android:textColor="@color/white_text_color"
+                android:background="@drawable/click_button_background">
+
+            </Button>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
