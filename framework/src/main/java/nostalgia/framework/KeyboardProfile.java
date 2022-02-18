@@ -50,7 +50,7 @@ public class KeyboardProfile implements Serializable {
 
     public static KeyboardProfile createNESProfile() {
         KeyboardProfile profile = new KeyboardProfile();
-        profile.name = "default";
+        profile.name = "nes";
         profile.keyMap.put(KeyEvent.KEYCODE_DPAD_LEFT, EmulatorController.KEY_LEFT);
         profile.keyMap.put(KeyEvent.KEYCODE_DPAD_RIGHT, EmulatorController.KEY_RIGHT);
         profile.keyMap.put(KeyEvent.KEYCODE_DPAD_UP, EmulatorController.KEY_UP);

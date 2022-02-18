@@ -142,6 +142,11 @@ abstract class GalleryActivity : BaseGameGalleryActivity(),
         PreferenceUtil.saveLastGalleryTab(this, pager!!.currentItem)
     }
 
+    override fun onDestroy() {
+        Constants.Yaw_Chair_IpAddress = null
+        super.onDestroy()
+    }
+
     override fun onItemClick(game: GameDescription) {
 
         if(Constants.Yaw_Chair_IpAddress ==null && !Yaw_Chair_Ignore) {

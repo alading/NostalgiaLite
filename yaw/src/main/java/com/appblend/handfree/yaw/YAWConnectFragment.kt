@@ -1,6 +1,7 @@
 package com.tcl.tv.ideo.player.ui.yawvr
 
 import android.app.Fragment
+import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
@@ -10,9 +11,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.appblend.handfree.yaw.Constants
 import com.appblend.handfree.yaw.R
 import com.appblend.handfree.yaw.YawActivity
+import com.appblend.handfree.yaw.YawChairListAdapter
+import com.tcl.sevend.yaw.YawChair
 import com.tcl.tv.ideo.yaw.YawUDPClient
 import kotlinx.coroutines.*
 import java.io.IOException
@@ -25,7 +30,8 @@ import java.util.*
  */
 class YAWConnectFragment : Fragment() {
 
-    var broadcastList: List<InetAddress>? = null
+    private var lisOfChair: List<YawChair>? = null
+    private lateinit var rvChairs: RecyclerView
     private val BROADCASTING_PORT = 50010
     private var tvDisplay: TextView? = null
     private lateinit var  okButton: Button
@@ -56,8 +62,11 @@ class YAWConnectFragment : Fragment() {
         Diable Login process
          */
 
-        //loginAsGuest()
-        getYawDevice()
+        rvChairs = view.findViewById<RecyclerView>(R.id.rv_yaw_chair)
+        val lmMovie: RecyclerView.LayoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+        rvChairs.setLayoutManager(lmMovie)
+
+
         okButton = view.findViewById<Button>(R.id.okButton)
         retryButton = view.findViewById<Button>(R.id.retry)
         testButton = view.findViewById<Button>(R.id.test)
@@ -80,6 +89,8 @@ class YAWConnectFragment : Fragment() {
             hostActivity.replaceFragment(testFragment)
 
         }
+
+        getYawDevice()
 
 
     }
@@ -110,23 +121,38 @@ class YAWConnectFragment : Fragment() {
 
             val yawUDPClient = YawUDPClient.getInstance()
             val inetAddress = InetAddress.getByName("255.255.255.255")
-            Constants.Yaw_Chair_IpAddress = yawUDPClient?.broadcast(message,true,inetAddress)
+
+
+            lisOfChair = yawUDPClient?.broadcastForAll(message,true,inetAddress)
 
             withContext(Dispatchers.Main) {
 
-                if(Constants.Yaw_Chair_IpAddress != null){
-                    tvDisplay?.text = "Chair found at \n"+Constants.Yaw_Chair_IpAddress+"\n please click ok button to continue"
-                    okButton.visibility = View.VISIBLE
-                    testButton.visibility = View.VISIBLE
-                } else {
+                if(lisOfChair == null || lisOfChair!!.isEmpty()) {
                     tvDisplay?.text = "Chair not found, click ok button to ignore"
                     okButton.visibility = View.VISIBLE
                     retryButton.visibility = View.VISIBLE
-                }
+                } else {
 
+                    rvChairs.visibility = View.VISIBLE
+                    val yawListAdapter = YawChairListAdapter(lisOfChair, ::onClickYawChairList)
+                    rvChairs.adapter = yawListAdapter
+                    yawListAdapter.notifyDataSetChanged()
+                    tvDisplay?.text = "Below chair found "+"\n please choose one of chair to continue"
+                    //okButton.visibility = View.VISIBLE
+                    //testButton.visibility = View.VISIBLE
+                }
             }
+
+
         }
 
+    }
+
+
+    private fun onClickYawChairList(pos: Int) {
+
+        Constants.Yaw_Chair_IpAddress = lisOfChair?.get(pos)?.ipAddress
+        activity.finish()
     }
 
 
