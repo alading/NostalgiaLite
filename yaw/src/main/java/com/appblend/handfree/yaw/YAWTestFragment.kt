@@ -10,9 +10,12 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.annotation.RequiresApi
+import com.appblend.handfree.yaw.Constants
 import com.appblend.handfree.yaw.R
+import com.tcl.tv.ideo.yaw.YawTCPClient
 import com.tcl.tv.ideo.yaw.YawUDPClient
 import kotlinx.coroutines.*
+import java.net.InetAddress
 
 /**
  * An example full-screen fragment that shows and hides the system UI (i.e.
@@ -126,6 +129,22 @@ class YAWTestFragment : Fragment(){
         frequencySpinner.onItemSelectedListener = itemClickListener
 
 
+        // TCP Connect
+        CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+            Constants.Yaw_Chair_IpAddress?.let {
+                val inetAddress = InetAddress.getByName(it)
+                val startTCPOK = (YawTCPClient.getInstance(inetAddress, Constants.TCP_PORT)?.command(
+                    Constants.START
+                )!!)
+                withContext(Dispatchers.Main) {
+                    if(!startTCPOK) {
+                        Toast.makeText(context,"\nActivate Yaw failure, please click me to try again", Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+            }
+
+        }
 
     }
 
